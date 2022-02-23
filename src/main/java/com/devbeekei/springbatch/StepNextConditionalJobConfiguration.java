@@ -19,28 +19,28 @@ public class StepNextConditionalJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Bean
-    public Job stepNextConditionalJob() {
-        return jobBuilderFactory.get("stepNextConditionalJob")
-            .start(stepNextConditionalStepA()) // StepA 실행
-                .on("FAILED") // 실행 결과가 FAILED 일 경우
-                .to(stepNextConditionalStepC()) // StepC 실행
-                .on("*") // 결과 관계 없이
-                .end() // Flow 종료
-            .from(stepNextConditionalStepA()) // StepA로 부터
-                .on("CUSTOM EXIT CODE") // 실행 결과가 CUSTOM EXIT CODE 일 경우
-                .to(stepNextConditionalStepD()) // SteD 실행
-                .on("*") // 결과 관계 없이
-                .end() // Flow 종료
-            .from(stepNextConditionalStepA()) // StepA로 부터
-                .on("*") // 실행 결과가 FAILED, CUSTOM EXIT CODE 외에 모든 경우
-                .to(stepNextConditionalStepB()) // StepB 실행
-                .next(stepNextConditionalStepC()) // StepB가 정상 종료되면 StepC 실행
-                .on("*") // 결과 관계 없이
-                .end() // Flow 종료
-            .end() // Job 종료
-            .build();
-    }
+//    @Bean
+//    public Job stepNextConditionalJob() {
+//        return jobBuilderFactory.get("stepNextConditionalJob")
+//            .start(stepNextConditionalStepA()) // StepA 실행
+//                .on("FAILED") // 실행 결과가 FAILED 일 경우
+//                .to(stepNextConditionalStepC()) // StepC 실행
+//                .on("*") // 결과 관계 없이
+//                .end() // Flow 종료
+//            .from(stepNextConditionalStepA()) // StepA로 부터
+//                .on("CUSTOM EXIT CODE") // 실행 결과가 CUSTOM EXIT CODE 일 경우
+//                .to(stepNextConditionalStepD()) // SteD 실행
+//                .on("*") // 결과 관계 없이
+//                .end() // Flow 종료
+//            .from(stepNextConditionalStepA()) // StepA로 부터
+//                .on("*") // 실행 결과가 FAILED, CUSTOM EXIT CODE 외에 모든 경우
+//                .to(stepNextConditionalStepB()) // StepB 실행
+//                .next(stepNextConditionalStepC()) // StepB가 정상 종료되면 StepC 실행
+//                .on("*") // 결과 관계 없이
+//                .end() // Flow 종료
+//            .end() // Job 종료
+//            .build();
+//    }
 
     @Bean
     public Step stepNextConditionalStepA() {
